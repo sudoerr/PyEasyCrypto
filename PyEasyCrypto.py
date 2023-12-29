@@ -190,44 +190,4 @@ class AES256CBC:
         dec = unpadder.update(dec) + unpadder.finalize()
         return dec
 
-
-        
-
-
-if __name__ == "__main__":
-    # c = ECDSA()
-    # # c.generate_new_keypair(b"mahdi")
-    # c.load_keys(b"mahdi")
-    # signature = c.sign(b"Hello World")
-    # with open("./data/keys/public.pem", "rb") as f:
-    #     p_key_pem = f.read()
-    #     print(c.verify(p_key_pem, signature, b"Hello World"))
-
-#   ========================================================
-
-    e = ECDH()
-    e.generate_keypair()
-    e2 = ECDH()
-    e2.generate_keypair()
-    e.generate_shared_key_and_derive(e2.get_public_key_pem())
-    e2.generate_shared_key_and_derive(e.get_public_key_pem())
-    print(e.get_derived_key() == e2.get_derived_key())
-
-#   ========================================================
-
-    message = b"hello world hois"
-    iv = os.urandom(16)
-    a = AES256CBC(e.get_derived_key(), iv)
-    enc = a.encrypt(message)
-    print("Encrypted : ", enc)
-
-    # iv = os.urandom(16)
-    a2 = AES256CBC(e2.get_derived_key(), iv)
-    dec = a2.decrpyt(enc)
-    print("Decrypted : ", dec)
-        
-
-
-
-
             
