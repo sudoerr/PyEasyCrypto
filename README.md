@@ -14,7 +14,7 @@ pip install cryptography
 ed25519 curve is used to sign and verify and everytime we save it in root directory given to root parameter which by default is ```./data/keys```.
 
  ```python
- from crypto import ECDSA
+ from PyEasyCrypto import ECDSA
 
  # Sign And Verify
  e = ECDSA()
@@ -44,7 +44,7 @@ e.load_keys_from(
 x25519 curve is used to generate shared keys between 2 peers and then AES-256 mode CBC is used to encrypt data with shared key.
 ```python
 import os
-from crypto import ECDH, AES256CBC
+from PyEasyCrypto import ECDH, AES256CBC
 
 # Generate Shared Key Between 2 Peers
 p1 = ECDH()
@@ -68,6 +68,25 @@ decrypted = aes.decrypt(encrypted)
 #        library to convert bytes to
 #        base64 if you want.
 ```
+### Save And Load x25519 Keys
+```python
+p1.save_keys(
+   private_key="path/to/private.pem",
+   public_key="path/to/public.pem",
+   password=None
+)
+
+p1.load_keys(
+   priavte_key="path/to/private.pem",
+   public_key=None,
+   password=None
+)
+# There will not be any problem 
+# if you set public_key as None.
+# Public key will be derived from
+# private key.
+```
+
 ## What's Happening Here?
 The library is only a thin wrapper of python's own [cryptography](https://cryptography.io/en/latest/) module. It uses well known and battle tested encryption techniques. It provides a convenient wrapper around these functions, taking away the details of using encryption correctly. Feel free to explore the source!
 

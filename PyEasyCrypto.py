@@ -129,6 +129,37 @@ class ECDH:
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
         return pem
+    
+    def save_keys(self, private_key:str, public_key:str, password:bytes=None):
+        # Checking password
+        if password == None:
+            encryption_algorithm = serialization.NoEncryption()
+        else:
+            encryption_algorithm = serialization.BestAvailableEncryption(password)
+        # Writing private key pem to file
+        private_bytes = self.__private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=encryption_algorithm
+        )
+        with open(private_key, "wb") as f:
+            f.write(private_bytes)
+        # Writing public key pem to file
+        public_bytes = self.__public_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        with open(public_key, "wb") as f:
+            f.write(public_bytes)
+        return True
+    
+    def load_keys(self, priavte_key:str, public_key:str=None, password:bytes=None):
+        if os.path.isfile(priavte_key):
+            with open(priavte_key, "rb") as f:
+                self.__private_key = serialization.load_pem_private_key(f.read(), password=password)
+                self.__public_key = self.__private_key.public_key()
+            return True
+        return False
 
     def get_derived_key(self):
         return self.__derived_key
