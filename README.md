@@ -9,6 +9,10 @@
 ```shell
 pip install cryptography
 ```
+### Download PyEasyCrypto In Your Project Library
+```shell
+git clone https://github.com/sudoerr/PyEasyCrypto.git
+```
 
 ## Sign And Verify
 ed25519 curve is used to sign and verify and everytime we save it in root directory given to root parameter which by default is ```./data/keys```.
