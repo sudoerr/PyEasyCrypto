@@ -9,7 +9,7 @@
 ```shell
 pip install cryptography
 ```
-### Download PyEasyCrypto In Your Project Library
+### Download PyEasyCrypto In Your Project Folder
 ```shell
 git clone https://github.com/sudoerr/PyEasyCrypto.git
 ```
